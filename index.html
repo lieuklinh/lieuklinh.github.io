@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Khanh Nguyen</title>
+  <title>Khanh Linh Lieu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
 
     /* ─── Variables ─── */
@@ -45,20 +45,24 @@
       padding: 18px 48px 0;
     }
     .header-top {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      gap: 16px;
+      padding-bottom: 14px;
     }
     .header-name {
+      font-family: var(--serif);
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 400;
       color: var(--black);
       letter-spacing: -.3px;
+      white-space: nowrap;
     }
     .header-icons {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 16px;
     }
     .header-icons a {
@@ -72,15 +76,17 @@
     .header-nav {
       display: flex;
       gap: 24px;
-      padding-bottom: 14px;
+      justify-content: center;
     }
     .header-nav a {
+      font-family: 'Inter', sans-serif;
       font-size: 14.5px;
-      font-weight: 400;
+      font-weight: 500;
       color: #4a90d9;
       transition: color .15s;
       position: relative;
       padding-bottom: 2px;
+      white-space: nowrap;
     }
     .header-nav a::after {
       content: '';
@@ -121,7 +127,110 @@
       color: var(--black); margin-bottom: 6px;
       letter-spacing: -.2px;
     }
-    .section-rule { border: none; border-top: 1px solid var(--rule); margin-bottom: 28px; }
+    .section-rule { border: none; border-top: 1px solid var(--rule); margin-top: 28px; margin-bottom: 28px; }
+
+    /* ── About Intro (photo + bio) ── */
+    .about-intro {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      margin-bottom: 28px;
+    }
+    .about-photo {
+      flex-shrink: 0;
+      width: 180px;
+      height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #c9d8e8 0%, #a8bfd4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-photo--empty::after {
+      content: 'Add Photo';
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .about-bio {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 400;
+      color: #444;
+      line-height: 1.75;
+      flex: 1;
+    }
+    @media (max-width: 640px) {
+      .about-intro { flex-direction: column; text-align: center; gap: 20px; }
+    }
+
+    /* ── Outside of Work — polaroid photo stack ── */
+    .polaroid-stack {
+      position: relative;
+      height: 320px;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .polaroid {
+      position: absolute;
+      width: 220px;
+      padding: 14px 14px 36px;
+      background: #fbfaf6;
+      border-radius: 3px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08);
+      cursor: grab;
+      transform: rotate(var(--rot, 0deg));
+      transition: box-shadow .2s, transform .15s;
+    }
+    .polaroid:active { cursor: grabbing; }
+    .polaroid:hover {
+      box-shadow: 0 16px 32px rgba(0,0,0,.24), 0 4px 8px rgba(0,0,0,.1);
+    }
+    .polaroid.dragging {
+      transition: none;
+      box-shadow: 0 20px 40px rgba(0,0,0,.28);
+    }
+    .polaroid img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      background: linear-gradient(135deg, #c9d8e8 0%, #a8bfd4 100%);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+    .polaroid--empty img { display: none; }
+    .polaroid--empty {
+      aspect-ratio: unset;
+    }
+    .polaroid--empty::after {
+      content: 'Add Photo';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, #c9d8e8 0%, #a8bfd4 100%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 640px) {
+      .polaroid-stack { height: 420px; }
+      .polaroid { width: 160px; }
+    }
 
     /* ── Skills ── */
     .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
@@ -143,39 +252,62 @@
     .exp-list::before {
       content: ''; position: absolute;
       left: 4px; top: 8px; bottom: 8px;
-      width: 1px; background: #e0e0e0;
+      width: 1px; background: #e3ecf7;
     }
     .exp-entry { position: relative; padding: 0 0 28px 24px; }
     .exp-entry:last-child { padding-bottom: 0; }
     .exp-entry::before {
       content: ''; position: absolute;
-      left: -16px; top: 6px;
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--white); border: 2px solid #ccc;
+      left: -17px; top: 7px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #5b9bf0;
+      box-shadow: 0 0 0 3px rgba(91,155,240,.18);
     }
+    .exp-list--plain::before { display: none; }
+    .exp-list--plain { padding-left: 0; }
+    .exp-list--plain .exp-entry { padding-left: 0; }
+    .exp-list--plain .exp-entry::before { display: none; }
     .exp-header {
-      display: flex; align-items: baseline;
-      justify-content: space-between; gap: 16px; margin-bottom: 3px;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 16px; margin-bottom: 6px;
     }
+    .exp-left { display: flex; flex-direction: column; gap: 3px; }
+    .exp-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; flex-shrink: 0; }
     .exp-role {
       font-family: var(--serif);
-      font-size: 15px; font-weight: 600;
+      font-size: 17px; font-weight: 600;
       color: var(--black); letter-spacing: -.1px;
     }
-    .exp-date { font-size: 12.5px; color: #aaa; white-space: nowrap; flex-shrink: 0; }
-    .exp-company { font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
-    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+    .exp-date { font-family: var(--sans); font-size: 13.5px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+    .exp-company { font-family: var(--sans); font-size: 13.5px; font-weight: 500; color: var(--muted); }
+    .exp-location { font-family: var(--sans); font-size: 13.5px; font-weight: 400; color: #aaa; white-space: nowrap; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
     .exp-bullets li {
-      font-size: 13.5px; color: #555; line-height: 1.65;
+      font-family: var(--sans);
+      font-size: 15px; color: #444; line-height: 1.7;
       padding-left: 14px; position: relative;
     }
     .exp-bullets li::before { content: '·'; position: absolute; left: 0; color: #bbb; font-size: 16px; line-height: 1.4; }
     .exp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
     .exp-tag { font-size: 11.5px; font-weight: 500; color: #888; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; }
 
-    /* ══════════════════════════════════
-       PORTFOLIO — Cheryl Vo card style
-    ══════════════════════════════════ */
+    /* sub-section divider inside Experience tab */
+    .exp-subhead {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 600;
+      color: var(--black); margin: 8px 0 6px;
+    }
+    .exp-list:first-of-type .exp-subhead,
+    .exp-subhead:first-child { margin-top: 0; }
+
+    /* Core Skills text lines (resume-style) */
+    .skills-list { display: flex; flex-direction: column; gap: 10px; }
+    .skills-line {
+      font-family: var(--sans);
+      font-size: 15px; color: #444; line-height: 1.7;
+    }
+    .skills-label { font-weight: 600; color: var(--black); }
+
 
     /* Big headline above cards */
     .portfolio-headline {
@@ -213,6 +345,8 @@
       flex-direction: column;
       transition: box-shadow .25s, transform .2s;
       cursor: pointer;
+      color: inherit;
+      text-decoration: none;
     }
     .proj-card:hover {
       box-shadow: 0 8px 32px rgba(0,0,0,.10);
@@ -328,34 +462,33 @@
 </head>
 <body>
 
-<!-- ══════════ BINH LE HEADER ══════════ -->
 <header class="site-header">
   <div class="header-top">
-    <span class="header-name">Khanh Nguyen</span>
+    <span class="header-name">Khanh Linh Lieu</span>
+    <nav class="header-nav">
+      <a href="#" onclick="showTab('about');return false;"      id="hn-about">About</a>
+      <a href="#" onclick="showTab('experience');return false;" id="hn-experience">Experience</a>
+      <a href="#" onclick="showTab('portfolio');return false;"  id="hn-portfolio">Portfolio</a>
+    </nav>
     <div class="header-icons">
       <!-- LinkedIn -->
-      <a href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn">
+      <a href="https://www.linkedin.com/in/lieuklinh/" target="_blank" title="LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
       <!-- GitHub -->
-      <a href="https://github.com/yourusername" target="_blank" title="GitHub">
+      <a href="https://github.com/lieuklinh" target="_blank" title="GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
       </a>
-      <!-- Resume / Scholar cap -->
-      <a href="#" target="_blank" title="Résumé">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <!-- Phone -->
+      <a href="tel:+19047354914" title="Phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
       <!-- Email -->
-      <a href="mailto:your@email.com" title="Email">
+      <a href="mailto:lieuklinh@gmail.com" title="Email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       </a>
     </div>
   </div>
-  <nav class="header-nav">
-    <a href="#" onclick="showTab('about');return false;"      id="hn-about">About</a>
-    <a href="#" onclick="showTab('experience');return false;" id="hn-experience">Experience</a>
-    <a href="#" onclick="showTab('portfolio');return false;"  id="hn-portfolio">Portfolio</a>
-  </nav>
 </header>
 
 <main class="content">
@@ -363,122 +496,200 @@
     <!-- ── About ── -->
     <div class="section" id="about">
       <h2 class="section-title">About Me</h2>
+
+      <div class="about-intro">
+        <div class="about-photo">
+          <!-- Replace src with your actual photo -->
+          <img src="YOUR_PHOTO.jpg" alt="Khanh Linh Lieu" onerror="this.style.display='none'; this.parentElement.classList.add('about-photo--empty');" />
+        </div>
+        <p class="about-bio">
+          Hi, I'm Khanh — a Data Science student at the University of North Florida. With internship experience spanning public works, research, and technology, I have hands-on experience in data analysis &amp; visualization, machine learning, and AI automation using Python, R, SQL, Power BI, and the Microsoft Power Platform. I thrive at the intersection of business, technology, and AI, with a goal to turn complex challenges into actionable solutions.
+        </p>
+      </div>
+
       <hr class="section-rule"/>
-      <p style="font-family:var(--serif);font-size:16px;font-weight:400;line-height:1.85;color:#333;margin-bottom:20px;">
-        Hi! I'm <strong>Khanh Nguyen</strong> — a Data Science &amp; AI engineer and honors student at the
-        University of North Florida, graduating December 2026. I build intelligent systems
-        that sit at the intersection of AI, automation, and real-world data.
-      </p>
-      <p style="font-size:14px;font-weight:300;color:#555;line-height:1.8;margin-bottom:32px;">
-        Currently conducting NLP research at the Mental Health Informatics Lab under Dr. Kahanda
-        and building construction AI agents with Dr. Vamsi. Previously, I designed the full IT
-        automation stack at Petticoat-Schmitt Civil Contractors as a CPT intern —
-        including SharePoint intranet, AI vendor lookup agent, Power BI dashboards, and end-to-end
-        ticketing automation.
-        Outside of work I train in Cuong Nhu martial arts and lead student initiatives through HIAC at UNF.
+
+      <h3 style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--black);margin-bottom:14px;">Outside of Work</h3>
+      <p style="font-family:var(--sans);font-size:15px;font-weight:400;color:#444;line-height:1.75;margin-bottom:32px;">
+        I keep myself proactive by spending my time at UNF HIAC Club, travelling, and doing martial arts.
       </p>
 
-      <h3 style="font-family:var(--serif);font-size:17px;font-weight:600;color:var(--black);margin-bottom:16px;">Core Skills</h3>
-      <div class="skills-grid">
-        <div>
-          <div class="skill-group-label">
-            <svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Languages
-          </div>
-          <div class="skill-pills">
-            <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">R</span><span class="pill">JavaScript</span><span class="pill">Java</span>
-          </div>
+      <div class="polaroid-stack" id="polaroidStack">
+        <div class="polaroid" style="--rot:-8deg; left:10%; top:10px; z-index:1;">
+          <img src="YOUR_PHOTO_1.jpg" alt="Memory 1" onerror="this.style.display='none'; this.parentElement.classList.add('polaroid--empty');" />
         </div>
-        <div>
-          <div class="skill-group-label">
-            <svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-            Data &amp; ML
-          </div>
-          <div class="skill-pills">
-            <span class="pill">Pandas</span><span class="pill">Scikit-learn</span><span class="pill">XGBoost</span><span class="pill">PyTorch</span><span class="pill">Streamlit</span>
-          </div>
+        <div class="polaroid" style="--rot:5deg; left:38%; top:40px; z-index:2;">
+          <img src="YOUR_PHOTO_2.jpg" alt="Memory 2" onerror="this.style.display='none'; this.parentElement.classList.add('polaroid--empty');" />
         </div>
-        <div>
-          <div class="skill-group-label">
-            <svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            Power Platform
-          </div>
-          <div class="skill-pills">
-            <span class="pill">Power Automate</span><span class="pill">Power BI</span><span class="pill">Copilot Studio</span><span class="pill">SharePoint</span>
-          </div>
-        </div>
-        <div>
-          <div class="skill-group-label">
-            <svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-            Cloud &amp; AI
-          </div>
-          <div class="skill-pills">
-            <span class="pill">Azure OpenAI</span><span class="pill">Doc Intelligence</span><span class="pill">Microsoft Graph</span><span class="pill">RAG / BM25</span>
-          </div>
+        <div class="polaroid" style="--rot:-3deg; left:62%; top:0px; z-index:3;">
+          <img src="YOUR_PHOTO_3.jpg" alt="Memory 3" onerror="this.style.display='none'; this.parentElement.classList.add('polaroid--empty');" />
         </div>
       </div>
     </div>
 
     <!-- ── Experience ── -->
     <div class="section" id="experience">
-      <h2 class="section-title">Experience</h2>
+
+      <!-- Core Skills -->
+      <h3 class="exp-subhead" style="margin-top:0;">Core Skills</h3>
+      <div class="skills-list" style="margin-bottom: 36px;">
+        <p class="skills-line"><span class="skills-label">Data Analytics:</span> SQL, Python, Power BI, Tableau, Microsoft Excel (VBA &amp; Macros), R, Azure Fabric, Databricks, Alteryx.</p>
+        <p class="skills-line"><span class="skills-label">AI Automation:</span> Copilot Studio, Power Automate, Azure OpenAI, LLM Orchestration, Prompt Engineering, RAG Model, NLP.</p>
+        <p class="skills-line"><span class="skills-label">Experience with:</span> Data Analysis &amp; Visualization, AI Automation &amp; Machine Learning, Cloud Computing, Predictive Modeling.</p>
+      </div>
+
       <hr class="section-rule"/>
+
+      <!-- Professional Experience -->
+      <h3 class="exp-subhead">Professional Experience</h3>
       <div class="exp-list">
 
         <div class="exp-entry">
           <div class="exp-header">
-            <span class="exp-role">Research Assistant — Construction AI</span>
-            <span class="exp-date">Summer 2025 – Present</span>
+            <div class="exp-left">
+              <span class="exp-role">IT Automation Intern</span>
+              <span class="exp-company">Petticoat Schmitt Inc</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">December 2025 – May 2026</span>
+              <span class="exp-location">Jacksonville, Florida</span>
+            </div>
           </div>
-          <div class="exp-company">University of North Florida · Dr. Vamsi's Lab</div>
           <ul class="exp-bullets">
-            <li>Building PSCC Construction AI Hub — Streamlit app with three AI agents on a 5-week sprint</li>
-            <li>Agents: Submittal Extraction, Specbook Q&A, and Cost Code classification</li>
-            <li>Integrating Azure Document Intelligence, Azure OpenAI, and Microsoft Graph API</li>
+            <li>Developed a Copilot Studio conversational agent deployed in Microsoft Teams to query a 2,312-record vendor dataset and track the procurement data faster, and architected PSCC Central, a SharePoint intranet organizing documents across 5 departments for 50+ employees, reducing manual searching time by 40%.</li>
+            <li>Assisted in developing PSCC Submittals Extractor, an agentic AI application combining Azure Document Intelligence and GPT-4o to extract submittal requirements from 800–1,200 page construction spec books into structured Excel workbooks with exact vendor names, reducing a 16-hour manual process to under 5 minutes.</li>
+            <li>Deployed 2 end-to-end Power Automate workflows integrating Microsoft Forms, SharePoint, Teams, and Outlook to automate procurement requests and field safety reporting, saving 10+ hours/week of manual processing effort.</li>
           </ul>
-          <div class="exp-tags"><span class="exp-tag">Azure OpenAI</span><span class="exp-tag">Streamlit</span><span class="exp-tag">Doc Intelligence</span><span class="exp-tag">Python</span></div>
         </div>
 
         <div class="exp-entry">
           <div class="exp-header">
-            <span class="exp-role">IT Automation Intern (CPT)</span>
-            <span class="exp-date">Jan 2025 – May 2025</span>
+            <div class="exp-left">
+              <span class="exp-role">Organizational Effectiveness Analyst Intern</span>
+              <span class="exp-company">Jacksonville Electric Authority</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">May 2024 – August 2024</span>
+              <span class="exp-location">Jacksonville, Florida</span>
+            </div>
           </div>
-          <div class="exp-company">Petticoat-Schmitt Civil Contractors · Jacksonville, FL</div>
           <ul class="exp-bullets">
-            <li>Built PSCC Central, a full SharePoint intranet portal deployed company-wide</li>
-            <li>Developed Procure Pal, a Copilot Studio AI agent on a 2,312-record vendor dataset</li>
-            <li>Automated IT ticketing end-to-end: Forms → SharePoint → Teams → PDF → Outlook</li>
-            <li>Created Power BI procurement &amp; safety dashboards published to Power BI Service</li>
+            <li>Developed 3 interactive Power BI dashboards on human resource data to identify 3 high-turnover job families, then designed a Six Sigma-based improvement strategy to reduce turnover rate in these critical positions.</li>
+            <li>Consolidated 100+ training courses and workshops previously scattered across PDF documents and Excel files into a centralized catalog in Power BI. Improved visibility of available professional development resources and automate data democratization on to training opportunities across the organization.</li>
+            <li>Built a Power Automate workflow to analyze employee training feedback weekly, identifying in-demand skills and trending courses. Leveraged data-driven insights to streamline the training catalog, improving course recommendation mechanisms and reducing the L&amp;D team's review time by 25%.</li>
           </ul>
-          <div class="exp-tags"><span class="exp-tag">Power Automate</span><span class="exp-tag">Copilot Studio</span><span class="exp-tag">Power BI</span><span class="exp-tag">SharePoint</span></div>
         </div>
 
         <div class="exp-entry">
           <div class="exp-header">
-            <span class="exp-role">Research Assistant — Mental Health Informatics</span>
-            <span class="exp-date">2024 – Present</span>
+            <div class="exp-left">
+              <span class="exp-role">Data Science Research Assistant</span>
+              <span class="exp-company">School of Computing: University of North Florida</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">August 2025 – Present</span>
+              <span class="exp-location">Jacksonville, Florida</span>
+            </div>
           </div>
-          <div class="exp-company">University of North Florida · Dr. Kahanda's Lab</div>
           <ul class="exp-bullets">
-            <li>Led NLP research on RDoC few-shot classification using five local Ollama LLMs</li>
-            <li>Implemented BM25-based dynamic retrieval, achieving 0.534 MAP (up from 59% zero-shot)</li>
-            <li>Prepared LaTeX paper submitted to BioNLP workshop</li>
+            <li>Benchmarked 5 open-source LLMs (LLaMA 3.1, Mistral 7B, Qwen 2.5, Phi3, Gemma2) to automate the ranking of 999 PubMed abstracts by mental health construct relevance and identify the most relevant sentence per abstract across 8 constructs, reducing psychologist manual reading time by 60%.</li>
+            <li>Co-authored a research paper on prompt-based AI as a cost-effective alternative to domain-specific fine-tuning, accepted to present at ACL Workshop (2026) and Florida Undergraduate Research Conference (2026).</li>
           </ul>
-          <div class="exp-tags"><span class="exp-tag">NLP</span><span class="exp-tag">Ollama</span><span class="exp-tag">BM25</span><span class="exp-tag">Python</span></div>
         </div>
 
         <div class="exp-entry">
           <div class="exp-header">
-            <span class="exp-role">BS Computing &amp; Information Systems</span>
-            <span class="exp-date">Aug 2023 – Dec 2026</span>
+            <div class="exp-left">
+              <span class="exp-role">Advising Assistant</span>
+              <span class="exp-company">Florida State College at Jacksonville</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">June 2023 – April 2024</span>
+              <span class="exp-location">Jacksonville, Florida</span>
+            </div>
           </div>
-          <div class="exp-company">University of North Florida · Data Science Honors</div>
           <ul class="exp-bullets">
-            <li>Capstone: Workforce Mismatch Index — XGBoost + LOCO-CV, R² = 0.423, UNF Symposium</li>
-            <li>Mayo Clinic Datathon: AKI prediction on MIMIC-IV ICU data, AUROC ≈ 0.77</li>
+            <li>Managed student inquiries through telephone and email and displayed positive customer service with prospective students and their families, faculty, and administration.</li>
+            <li>Created and implemented training materials for new student workers, reducing onboarding time by 30%, and maintained comprehensive knowledge of myFSCJ to effectively assist students.</li>
+            <li>Performed team engagement and workspace optimization projects, improving office workflow efficiency.</li>
           </ul>
-          <div class="exp-tags"><span class="exp-tag">Machine Learning</span><span class="exp-tag">SQL</span><span class="exp-tag">Python</span></div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-left">
+              <span class="exp-role">Customer Success Collaborator</span>
+              <span class="exp-company">FireGroup Technology</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">June 2022 – August 2022</span>
+              <span class="exp-location">Remote</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Supported 50+ e-commerce customers in adopting FireApps' language translation and drop-shipping applications by guiding technical setup on their websites and troubleshooting integration issues.</li>
+            <li>Collaborated with technical teams to deliver training sessions and support documentation, assisting clients implement apps smoothly and sustaining 90%+ client retention rate. Leveraged Excel, Mailchimp, and CRM tools to track client activities, identify upsell opportunities, and boost upgrade rates.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="section-rule"/>
+
+      <!-- Education -->
+      <h3 class="exp-subhead">Education</h3>
+      <div class="exp-list exp-list--plain">
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-left">
+              <span class="exp-role" style="font-family:var(--sans);font-size:15px;font-weight:600;color:var(--black);">Bachelor of Science, Data Science — Honors Program</span>
+              <span class="exp-company" style="font-family:var(--sans);font-size:15px;font-weight:400;color:#444;">University of North Florida</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date" style="font-size:15px;">Graduation: December 2026</span>
+              <span class="exp-location" style="font-size:15px;">Jacksonville, Florida</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <hr class="section-rule"/>
+
+      <!-- Leadership Experience -->
+      <h3 class="exp-subhead">Leadership Experience</h3>
+      <div class="exp-list">
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-left">
+              <span class="exp-role">Vice President</span>
+              <span class="exp-company">UNF Health Informatics &amp; Analytics Club (HIAC)</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">May 2025 – Present</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Oversaw club operations and executive initiatives across a cross-functional team to drive a 25% increase in engagement for 50+ active members by leading 10+ events, networking sessions, and workshops connecting students with industry professionals.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <div class="exp-left">
+              <span class="exp-role">B2B Executive</span>
+              <span class="exp-company">AIESEC</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">March 2022 – December 2022</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Executed multiple sales tactics, successfully converting leads into customers and surpassing sales targets to assist foreigners in finding job opportunities in Vietnam, contributing to the project's success in promoting global talent exchange.</li>
+            <li>Enhanced partner experience through tailored service activities, significantly increasing partner retention.</li>
+          </ul>
         </div>
 
       </div>
@@ -488,78 +699,45 @@
          PORTFOLIO  ← Cheryl Vo card style
     ══════════════════════════════════ -->
     <div class="section" id="portfolio">
-      <h2 class="section-title">Portfolio</h2>
-      <hr class="section-rule"/>
-
-      <!-- Big italic headline like Cheryl's "What if…" -->
-      <div class="portfolio-headline">
-        <h3>What if data and AI<br>built something real?</h3>
-        <p>Here's where I asked bigger questions — and built the answers.</p>
-      </div>
 
       <div class="proj-grid">
 
         <!-- Card 1 -->
-        <div class="proj-card">
-          <div class="proj-card-header">
-            <span class="proj-card-label">AI + Construction =</span>
-            <span class="proj-card-context">PSCC</span>
-          </div>
-          <div class="proj-card-body">
-            <p class="proj-card-desc">
-              Built a Streamlit app with three AI agents for construction workflows —
-              Submittal Extraction, Specbook Q&A, and Cost Code classification.
-              Powered by Azure Document Intelligence and Azure OpenAI.
-            </p>
-            <div class="proj-card-img">
-              <!-- <img src="YOUR_SCREENSHOT.png" alt="PSCC Construction AI Hub"/> -->
-              Screenshot
-            </div>
-            <div class="proj-card-tags">
-              <span class="proj-card-tag">Azure OpenAI</span>
-              <span class="proj-card-tag">Streamlit</span>
-              <span class="proj-card-tag">Doc Intelligence</span>
-              <span class="proj-card-tag">+more</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="proj-card">
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_MENTAL_HEALTH" target="_blank" rel="noopener">
           <div class="proj-card-header">
             <span class="proj-card-label">AI + Mental Health =</span>
-            <span class="proj-card-context">BioNLP</span>
+            <span class="proj-card-context">BioNLP Research</span>
           </div>
           <div class="proj-card-body">
             <p class="proj-card-desc">
-              Classified mental health constructs from clinical text using few-shot
-              LLM prompting. Compared five local Ollama models with BM25-based
-              dynamic retrieval. Submitted to the BioNLP workshop.
+              Benchmarked five open-source LLMs (LLaMA 3.1, Gemma 2, Qwen 2.5, Phi-3, Mistral) on few-shot
+              RDoC construct classification and sentence extraction from PubMed abstracts, reaching 79.64% MAP
+              and 0.517 accuracy — cutting psychologists' manual reading time by 60%.
             </p>
             <div class="proj-card-img">
-              <!-- <img src="YOUR_SCREENSHOT.png" alt="RDoC NLP"/> -->
+              <!-- <img src="YOUR_SCREENSHOT.png" alt="LLM Mental Health Informatics"/> -->
               Screenshot
             </div>
             <div class="proj-card-tags">
-              <span class="proj-card-tag">NLP</span>
+              <span class="proj-card-tag">LLM</span>
+              <span class="proj-card-tag">Few-Shot Prompting</span>
               <span class="proj-card-tag">Ollama</span>
-              <span class="proj-card-tag">BM25</span>
               <span class="proj-card-tag">+more</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <!-- Card 3 -->
-        <div class="proj-card">
+        <!-- Card 2 -->
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_WORKFORCE_MISMATCH" target="_blank" rel="noopener">
           <div class="proj-card-header">
             <span class="proj-card-label">AI + Local Economy =</span>
             <span class="proj-card-context">UNF Capstone</span>
           </div>
           <div class="proj-card-body">
             <p class="proj-card-desc">
-              Built a Workforce Mismatch Index for Jacksonville ZIP codes using
-              XGBoost with LOCO-CV spatial validation. Achieved R² = 0.423.
-              Presented at the UNF Undergraduate Symposium.
+              Built a Workforce Mismatch Index across all 57 Jacksonville ZIP codes by training XGBoost models
+              on data from 14 U.S. metro areas, achieving R² up to 0.82 across spatial access, housing affordability,
+              and skills-gap dimensions to flag high-priority ZIPs for city investment.
             </p>
             <div class="proj-card-img">
               <!-- <img src="YOUR_SCREENSHOT.png" alt="Workforce Mismatch Index"/> -->
@@ -567,86 +745,118 @@
             </div>
             <div class="proj-card-tags">
               <span class="proj-card-tag">XGBoost</span>
+              <span class="proj-card-tag">ACS Data</span>
               <span class="proj-card-tag">Spatial Analysis</span>
-              <span class="proj-card-tag">Python</span>
               <span class="proj-card-tag">+more</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <!-- Card 4 -->
-        <div class="proj-card">
+        <!-- Card 3 -->
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_MALWARE_CLASSIFICATION" target="_blank" rel="noopener">
           <div class="proj-card-header">
-            <span class="proj-card-label">AI + Clinical Data =</span>
-            <span class="proj-card-context">Mayo Clinic</span>
+            <span class="proj-card-label">AI + Cybersecurity =</span>
+            <span class="proj-card-context">Data Mining</span>
           </div>
           <div class="proj-card-body">
             <p class="proj-card-desc">
-              Led data engineering for AKI prediction in ICU lung cancer patients
-              on MIMIC-IV. Built landmark analysis pipeline and SQL extraction
-              queries. Achieved Test AUROC ≈ 0.77.
+              Compared five ML classifiers (Random Forest, IBk, SVM, Logistic Regression, AdaBoost) to sort
+              10,686 Microsoft malware samples into 9 families, narrowing 69 attributes down to 10 through
+              feature selection — Random Forest came out on top.
             </p>
             <div class="proj-card-img">
-              <!-- <img src="YOUR_SCREENSHOT.png" alt="AKI Prediction"/> -->
+              <!-- <img src="YOUR_SCREENSHOT.png" alt="Microsoft Malware Classification"/> -->
               Screenshot
             </div>
             <div class="proj-card-tags">
-              <span class="proj-card-tag">MIMIC-IV</span>
-              <span class="proj-card-tag">SQL</span>
-              <span class="proj-card-tag">Clinical ML</span>
+              <span class="proj-card-tag">Random Forest</span>
+              <span class="proj-card-tag">Weka</span>
+              <span class="proj-card-tag">Feature Selection</span>
               <span class="proj-card-tag">+more</span>
             </div>
           </div>
-        </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_FCOS_LIDAR" target="_blank" rel="noopener">
+          <div class="proj-card-header">
+            <span class="proj-card-label">AI + Autonomous Driving =</span>
+            <span class="proj-card-context">Computer Vision</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-card-desc">
+              Implemented a Multi-Round Range View projection for LiDAR point clouds (FCOS-LiDAR), recovering
+              previously discarded points and boosting retention from 10.3% to 71.0% — a 6.9× improvement — for
+              3D object detection on the nuScenes dataset.
+            </p>
+            <div class="proj-card-img">
+              <!-- <img src="YOUR_SCREENSHOT.png" alt="FCOS-LiDAR 3D Object Detection"/> -->
+              Screenshot
+            </div>
+            <div class="proj-card-tags">
+              <span class="proj-card-tag">LiDAR</span>
+              <span class="proj-card-tag">PyTorch</span>
+              <span class="proj-card-tag">Computer Vision</span>
+              <span class="proj-card-tag">+more</span>
+            </div>
+          </div>
+        </a>
 
         <!-- Card 5 -->
-        <div class="proj-card">
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_ICU_LOGISTIC_REGRESSION" target="_blank" rel="noopener">
           <div class="proj-card-header">
-            <span class="proj-card-label">AI + Procurement =</span>
-            <span class="proj-card-context">PSCC</span>
+            <span class="proj-card-label">AI + Healthcare =</span>
+            <span class="proj-card-context">Biostatistics</span>
           </div>
           <div class="proj-card-body">
             <p class="proj-card-desc">
-              Copilot Studio AI agent grounded on a 2,312-record vendor dataset
-              for PSCC procurement workflows. Deployed with live SharePoint
-              integration and tested across multiple query types.
+              Built a binary logistic regression model on 200 ICU patients to predict mortality risk, reaching a
+              C-statistic of 0.79. Found emergency admission to be the strongest predictor, raising death odds
+              by roughly 21×.
             </p>
-            <div class="proj-card-img">Screenshot</div>
+            <div class="proj-card-img">
+              <!-- <img src="YOUR_SCREENSHOT.png" alt="ICU Survival Logistic Regression"/> -->
+              Screenshot
+            </div>
             <div class="proj-card-tags">
-              <span class="proj-card-tag">Copilot Studio</span>
-              <span class="proj-card-tag">SharePoint</span>
-              <span class="proj-card-tag">Power Automate</span>
+              <span class="proj-card-tag">Logistic Regression</span>
+              <span class="proj-card-tag">SAS</span>
+              <span class="proj-card-tag">Biostatistics</span>
+              <span class="proj-card-tag">+more</span>
             </div>
           </div>
-        </div>
+        </a>
 
         <!-- Card 6 -->
-        <div class="proj-card">
+        <a class="proj-card" href="YOUR_GOOGLE_DRIVE_LINK_LAND_SURFACE_TEMPERATURE" target="_blank" rel="noopener">
           <div class="proj-card-header">
-            <span class="proj-card-label">AI + IT Operations =</span>
-            <span class="proj-card-context">PSCC</span>
+            <span class="proj-card-label">AI + Climate Science =</span>
+            <span class="proj-card-context">Remote Sensing</span>
           </div>
           <div class="proj-card-body">
             <p class="proj-card-desc">
-              End-to-end Power Automate flow — Microsoft Forms to SharePoint,
-              Teams adaptive cards, PDF generation, and Outlook email.
-              Debugged multi-choice parsing and file attachment handling.
+              Built an interactive GUI to visualize 24 years of global land surface temperature satellite data and
+              forecast the next decade using an ARIMA(1,1,1) model trained on ESA climate change data.
             </p>
-            <div class="proj-card-img">Screenshot</div>
+            <div class="proj-card-img">
+              <!-- <img src="YOUR_SCREENSHOT.png" alt="Land Surface Temperature Forecasting"/> -->
+              Screenshot
+            </div>
             <div class="proj-card-tags">
-              <span class="proj-card-tag">Power Automate</span>
-              <span class="proj-card-tag">Teams</span>
-              <span class="proj-card-tag">SharePoint</span>
+              <span class="proj-card-tag">ARIMA</span>
+              <span class="proj-card-tag">Time Series</span>
+              <span class="proj-card-tag">xarray</span>
+              <span class="proj-card-tag">+more</span>
             </div>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
 
     <!-- Footer -->
     <footer>
-      <span class="footer-name">Khanh Nguyen</span>
+      <span class="footer-name">Khanh Linh Lieu</span>
       <div class="footer-links">
         <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
         <a href="https://github.com/yourusername" target="_blank">GitHub</a>
@@ -669,6 +879,51 @@
     // Scroll to top of content
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Polaroid drag-to-reorder
+  (function initPolaroids() {
+    const stack = document.getElementById('polaroidStack');
+    if (!stack) return;
+    let topZ = 10;
+    stack.querySelectorAll('.polaroid').forEach(card => {
+      let isDown = false, startX, startY, origLeft, origTop;
+
+      const onDown = (e) => {
+        isDown = true;
+        card.classList.add('dragging');
+        card.style.zIndex = ++topZ;
+        const point = e.touches ? e.touches[0] : e;
+        startX = point.clientX;
+        startY = point.clientY;
+        origLeft = card.offsetLeft;
+        origTop = card.offsetTop;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('touchend', onUp);
+      };
+      const onMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const point = e.touches ? e.touches[0] : e;
+        const dx = point.clientX - startX;
+        const dy = point.clientY - startY;
+        card.style.left = (origLeft + dx) + 'px';
+        card.style.top = (origTop + dy) + 'px';
+      };
+      const onUp = () => {
+        isDown = false;
+        card.classList.remove('dragging');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onUp);
+      };
+
+      card.addEventListener('mousedown', onDown);
+      card.addEventListener('touchstart', onDown, { passive: true });
+    });
+  })();
 
   // Show About by default on load
   showTab('about');
